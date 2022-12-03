@@ -1,5 +1,6 @@
 import arrow.core.getOrElse
 import kotlinx.coroutines.runBlocking
+import util.fanOut
 import util.instantiate
 import util.readFile
 
@@ -19,14 +20,22 @@ fun main() {
             runBlocking {
                 res.map { it?.lineSequence() }
                     .use { lines ->
-                        lines?.let { solution.solve(it) }
+                        lines?.fanOut()
+                            ?.let { (s1, s2) ->
+                                solution.solve1(s1) to solution.solve2(s2)
+                            }
                     }
             }
         }
         .zip(taskNums.asSequence())
         .map { (answer, index) -> answer?.let { index to it } }
         .filterNotNull()
-        .forEach { (index, answer) ->
-            println("Solution ${index.padStart(2, '0')}: $answer")
+        .forEach { (index, answers) ->
+            println(
+                """
+                |Solutions ${index.padStart(2, '0')}: ${answers.first}
+                |              ${answers.second}
+            """.trimMargin()
+            )
         }
 }

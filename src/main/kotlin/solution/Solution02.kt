@@ -1,7 +1,7 @@
 package solution
 
 object Solution02 : Solution {
-    override fun solve(input: Sequence<String>): Number {
+    override fun solve1(input: Sequence<String>): Number {
         val scores = mapOf('X' to 1, 'Y' to 2, 'Z' to 3)
         val winningOutcomes = setOf('A' to 'Y', 'B' to 'Z', 'C' to 'X')
         val moves = input
@@ -17,4 +17,6 @@ object Solution02 : Solution {
             }
             .sum()
     }
+
+    override fun solve2(input: Sequence<String>): Number = -1
 }
