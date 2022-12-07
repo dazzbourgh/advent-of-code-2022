@@ -5,7 +5,7 @@ import util.instantiate
 import util.readFile
 
 fun main() {
-    val taskNums = (1..30).map { it.toString().padStart(2, '0') }
+    val taskNums = (1..31).map { it.toString().padStart(2, '0') }
 
     val solutions = taskNums.map { instantiate(it) }
         .filter { it.isRight() }
