@@ -30,3 +30,6 @@ fun <T> Sequence<T>.fanOut(): Pair<Sequence<T>, Sequence<T>> {
     val (l1, l2) = list.zip(list).unzip()
     return l1.asSequence() to l2.asSequence()
 }
+
+fun String.zipWithIndex(): Iterable<Pair<Int, Char>> =
+    mapIndexed { index, t -> index to t }

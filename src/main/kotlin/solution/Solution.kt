@@ -1,7 +1,9 @@
 package solution
 
-interface Solution {
-    fun solve1(input: Sequence<String>): Number
+import arrow.core.Either
 
-    fun solve2(input: Sequence<String>): Number
+interface Solution {
+    fun solve1(input: Sequence<String>): Either<String, Number>
+
+    fun solve2(input: Sequence<String>): Either<String, Number>
 }

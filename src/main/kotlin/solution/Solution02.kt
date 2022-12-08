@@ -1,5 +1,8 @@
 package solution
 
+import arrow.core.Either
+import arrow.core.right
+
 object Solution02 : Solution {
     private val scores = mapOf('X' to 1, 'Y' to 2, 'Z' to 3)
     private val winningOutcomes = mapOf('A' to 'Y', 'B' to 'Z', 'C' to 'X')
@@ -12,16 +15,16 @@ object Solution02 : Solution {
             .map(solution)
             .sum()
 
-    override fun solve1(input: Sequence<String>): Number =
+    override fun solve1(input: Sequence<String>): Either<String, Number> =
         solve(input) { (first, second) ->
             scores[second]!! + when (second) {
                 winningOutcomes[first] -> 6
                 first + 23 -> 3
                 else -> 0
             }
-        }
+        }.right()
 
-    override fun solve2(input: Sequence<String>): Number =
+    override fun solve2(input: Sequence<String>): Either<String, Number> =
         solve(input) { (enemyMove, outcome) ->
             val score = (outcome - 'X') * 3
             val move = when (score) {
@@ -30,5 +33,5 @@ object Solution02 : Solution {
                 else -> losinggOutcomes[enemyMove]?.let { scores[it] }!!
             }
             score + move
-        }
+        }.right()
 }

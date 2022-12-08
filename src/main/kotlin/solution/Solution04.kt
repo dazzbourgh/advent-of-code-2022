@@ -1,5 +1,8 @@
 package solution
 
+import arrow.core.Either
+import arrow.core.right
+
 object Solution04 : Solution {
     private data class Interval(val left: Int, val right: Int)
 
@@ -18,13 +21,15 @@ object Solution04 : Solution {
     private fun solve(input: Sequence<String>, predicate: (Pair<Interval, Interval>) -> Boolean): Int =
         input.map { parse(it) }.count(predicate)
 
-    override fun solve1(input: Sequence<String>): Number =
+    override fun solve1(input: Sequence<String>): Either<String, Number> =
         solve(input) { (first, second) ->
             first contains second || second contains first
         }
+            .right()
 
-    override fun solve2(input: Sequence<String>): Number =
+    override fun solve2(input: Sequence<String>): Either<String, Number> =
         solve(input) { (first, second) ->
             first overlapsWith second || second overlapsWith first
         }
+            .right()
 }

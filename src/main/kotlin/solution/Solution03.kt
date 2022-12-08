@@ -1,5 +1,8 @@
 package solution
 
+import arrow.core.Either
+import arrow.core.right
+
 object Solution03 : Solution {
     private fun findDuplicate(s1: String, s2: String): String =
         s2.toSet().let { set2 -> s1.filter { set2.contains(it) } }
@@ -18,13 +21,15 @@ object Solution03 : Solution {
             .map { getValue(it) }
             .sum()
 
-    override fun solve1(input: Sequence<String>): Number =
+    override fun solve1(input: Sequence<String>): Either<String, Number> =
         input.map { it.splitInHalf() }
             .map { (a, b) -> findDuplicate(a, b) }
             .finalize()
+            .right()
 
-    override fun solve2(input: Sequence<String>): Number =
+    override fun solve2(input: Sequence<String>): Either<String, Number> =
         input.windowed(3, 3)
             .map { it.reduce(Solution03::findDuplicate) }
             .finalize()
+            .right()
 }

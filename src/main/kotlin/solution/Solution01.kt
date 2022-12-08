@@ -1,5 +1,8 @@
 package solution
 
+import arrow.core.Either
+import arrow.core.right
+
 object Solution01 : Solution {
     private fun calculateSums(input: Sequence<String>) =
         input.fold(listOf(listOf<String>())) { acc, string ->
@@ -8,9 +11,9 @@ object Solution01 : Solution {
         }
             .map { vals -> vals.sumOf { it.toInt() } }
 
-    override fun solve1(input: Sequence<String>): Number =
-        calculateSums(input).max()
+    override fun solve1(input: Sequence<String>): Either<String, Number> =
+        calculateSums(input).max().right()
 
-    override fun solve2(input: Sequence<String>): Number =
-        calculateSums(input).sortedDescending().take(3).sum()
+    override fun solve2(input: Sequence<String>): Either<String, Number> =
+        calculateSums(input).sortedDescending().take(3).sum().right()
 }
