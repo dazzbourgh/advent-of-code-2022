@@ -62,5 +62,4 @@ object Solution05 : Solution {
 
     override fun solve2(input: Sequence<String>): Either<String, Number> =
         solve(input) { it.reversed() }
-
 }
