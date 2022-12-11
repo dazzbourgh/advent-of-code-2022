@@ -12,7 +12,7 @@ object Solution09 : Solution {
     enum class Direction { U, D, L, R }
     data class Command(val direction: Direction, val moves: Int)
     data class Coord(val x: Int, val y: Int)
-    data class State(val h: Coord, val t: Coord)
+    data class State(val h: Coord, val ts: List<Coord>)
 
     private fun String.toCommand() = split(" ").let { (cmd, moves) -> Command(Direction.valueOf(cmd), moves.toInt()) }
     private fun moveH(h: Coord, direction: Direction): Coord = when (direction) {
@@ -35,26 +35,30 @@ object Solution09 : Solution {
     }
 
     private fun move(state: State, direction: Direction): State {
-        val (h, t) = state
+        val (h, ts) = state
         val nextH = moveH(h, direction)
-        val nextT = moveT(t, nextH)
-        return State(nextH, nextT)
+        val nextTs = ts.fold(nextH to listOf<Coord>()) { (prev, acc), cur ->
+            val nextT = moveT(cur, prev)
+            nextT to (acc + nextT)
+        }.second
+        return State(nextH, nextTs)
     }
 
-    override fun solve1(input: Sequence<String>): Either<String, Number> {
-        val start = State(Coord(0, 0), Coord(0, 0))
+    private fun solve(input: Sequence<String>, tailSize: Int): Either<String, Number> {
+        val start = State(Coord(0, 0), List(tailSize) { Coord(0, 0) })
         return input.map { it.toCommand() }
             .runningFold(sequenceOf(start)) { acc, (direction, moves) ->
                 generateSequence(acc.last()) { move(it, direction) }
                     .take(moves + 1)
             }
             .flatten()
-            .map { it.t }
+            .map { it.ts.last() }
             .distinct()
             .count()
             .right()
     }
 
-    override fun solve2(input: Sequence<String>): Either<String, Number> =
-        1.right()
+    override fun solve1(input: Sequence<String>) = solve(input, 1)
+
+    override fun solve2(input: Sequence<String>) = solve(input, 9)
 }
