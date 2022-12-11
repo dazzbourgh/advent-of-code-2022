@@ -1,7 +1,6 @@
 package solution
 
 import arrow.core.Either
-import arrow.core.left
 import arrow.core.right
 
 object Solution06 : Solution {

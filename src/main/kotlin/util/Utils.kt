@@ -11,6 +11,7 @@ import arrow.fx.coroutines.release
 import kotlinx.coroutines.runBlocking
 import solution.Solution
 import java.io.BufferedReader
+import kotlin.math.pow
 
 fun readFile(path: String): Resource<BufferedReader?> =
     resource { javaClass.classLoader.getResourceAsStream(path)?.bufferedReader() } release { it?.close() }
@@ -33,3 +34,5 @@ fun <T> Sequence<T>.fanOut(): Pair<Sequence<T>, Sequence<T>> {
 
 fun String.zipWithIndex(): Iterable<Pair<Int, Char>> =
     mapIndexed { index, t -> index to t }
+
+fun Number.power(n: Int) = toDouble().pow(n)
