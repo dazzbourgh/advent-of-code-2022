@@ -9,10 +9,10 @@ import kotlin.math.sign
 import kotlin.math.sqrt
 
 object Solution09 : Solution {
-    enum class Direction { U, D, L, R }
-    data class Command(val direction: Direction, val moves: Int)
-    data class Coord(val x: Int, val y: Int)
-    data class State(val h: Coord, val ts: List<Coord>)
+    private enum class Direction { U, D, L, R }
+    private data class Command(val direction: Direction, val moves: Int)
+    private data class Coord(val x: Int, val y: Int)
+    private data class State(val h: Coord, val ts: List<Coord>)
 
     private fun String.toCommand() = split(" ").let { (cmd, moves) -> Command(Direction.valueOf(cmd), moves.toInt()) }
     private fun moveH(h: Coord, direction: Direction): Coord = when (direction) {
