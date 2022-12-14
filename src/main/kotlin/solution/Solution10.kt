@@ -27,7 +27,6 @@ object Solution10 : Solution {
             .mapIndexed { index, value -> index to (index * value) }
             .filter { (index, _) -> index == 20 || (index - 20) % 40 == 0 }
             .map { it.second }
-            .also { println(it) }
             .sum()
             .right()
 

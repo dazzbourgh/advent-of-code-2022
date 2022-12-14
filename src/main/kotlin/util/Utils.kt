@@ -36,3 +36,5 @@ fun String.zipWithIndex(): Iterable<Pair<Int, Char>> =
     mapIndexed { index, t -> index to t }
 
 fun Number.power(n: Int) = toDouble().pow(n)
+
+fun Iterable<Long>.product() = fold(1L) { acc, n -> acc * n }
