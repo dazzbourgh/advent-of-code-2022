@@ -38,3 +38,10 @@ fun String.zipWithIndex(): Iterable<Pair<Int, Char>> =
 fun Number.power(n: Int) = toDouble().pow(n)
 
 fun Iterable<Long>.product() = fold(1L) { acc, n -> acc * n }
+
+typealias Matrix<T> = List<List<T>>
+
+fun <T, R> List<T>.combinations(other: List<R>): List<Pair<T, R>> =
+    indices.map { i -> List(other.size) { i } }
+        .flatMap { it.zip(other.indices) }
+        .map { (i, j) -> this[i] to other[j] }

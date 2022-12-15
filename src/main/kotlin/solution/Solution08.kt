@@ -3,10 +3,9 @@ package solution
 import arrow.core.Either
 import arrow.core.flatten
 import arrow.core.right
+import util.Matrix
 import kotlin.math.max
 import kotlin.math.min
-
-typealias Matrix<T> = List<List<T>>
 
 object Solution08 : Solution {
     private operator fun Matrix<Boolean>.plus(other: Matrix<Boolean>): Matrix<Boolean> =
