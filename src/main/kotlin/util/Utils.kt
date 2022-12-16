@@ -38,6 +38,7 @@ fun String.zipWithIndex(): Iterable<Pair<Int, Char>> =
 fun Number.power(n: Int) = toDouble().pow(n)
 
 fun Iterable<Long>.product() = fold(1L) { acc, n -> acc * n }
+fun Iterable<Int>.product() = fold(1) { acc, n -> acc * n }
 
 typealias Matrix<T> = List<List<T>>
 
